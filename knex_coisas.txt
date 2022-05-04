@@ -1,0 +1,44 @@
+psql -U postgres   //entrar no postgres
+
+CREATE DATABASE knex_teste; //Criar banco de dados
+\c knex_teste;              //Conectar no banco de dados
+\dt                         //Listar todas as tabelas do banco de dados
+
+CREATE TABLE users (        // Criar tabela users
+id serial unique,
+name text not null
+);
+
+
+\d users                    // descrever a tabela users
+
+
+INSERT INTO users (name) values ('leander');
+
+SELECT * FROM users;
+
+UPDATE users SET name = 'leander silveira' WHERE id = 1;
+
+DELETE FROM users WHERE id = 1
+
+\q    // sair
+
+
+instalei as dependencias
+depois npx knex init para cirar o knexfile
+depos eu configuro o banco de dados com as congifurações que veio deste arquivo
+
+
+migrations: é como se fosse um historio da nossa atividade no banco de dados,ajuda a criar table e campos, e tambem remover
+
+npx knex migrate:make create_table_users
+npx knex migrate:latest
+npx knex migrate:rollback --all
+
+
+// esse comando cria usuarios antes de iniciar tudo
+// voce consegue inserir dados antes
+npx knex seed:make 001_users
+
+npx knex seed:run
+npx knex seed:run --specific 002_projects.js
